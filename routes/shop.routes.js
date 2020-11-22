@@ -41,8 +41,8 @@ router.post('/new', (req, res, next) => {
 })
 
 
-// Elimina de la BBDD la tienda --
-router.get('/delete', (req, res) => {
+// Elimina de la BBDD la tienda
+router.get('/delete', (req, res, next) => {
 
     const shopId = req.query.id
 

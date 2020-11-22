@@ -82,7 +82,8 @@ router.post("/login", passport.authenticate("local", {
 // --  DELETE USERS  --
 
 // Lista de usuarios para borrar o cambiar role (renderizar) (GET) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res) => {
+router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
+
   User
     .find()
     .then(allUsers => res.render('user/delete', {
@@ -92,7 +93,7 @@ router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res) => {
 })
 
 // Borrar usuarios (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.post('/delete', (req, res) => {
+router.post('/delete', (req, res, next) => {
 
     const userId = req.query.user_id
 
@@ -106,7 +107,7 @@ router.post('/delete', (req, res) => {
 // --  EDIT PROFILE --
 
 // Editar perfil (renderizar) (GET) OK!!!!!!!!!!!!!!!!!!!
-router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => {
+router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res, next) => {
 
   const userId = req.user._id
 
@@ -118,7 +119,7 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']),
 
 
 // Editar perfil (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!
-router.post('/edit', (req, res) => {
+router.post('/edit', (req, res, next) => {
 
     const userId = req.query.user_id
     
