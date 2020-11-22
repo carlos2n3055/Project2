@@ -1,0 +1,48 @@
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <h2>Edit user</h2>
+
+            <form action="/user-zone/edit?user_id={{user._id}}" method="POST">
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" value="{{user.username}}">
+                </div>
+
+                {{!-- AGREGAR COMENTARIO PARA QUE PIDA SIEMPRE LA CONTRASEÑA PARA MODIFICACIONES DEL PERFIL --}}
+                <div class=" form-group">
+                    <label>Password</label>
+                    <input type="text" class="form-control" name="password" placeholder='******'>
+                </div>
+
+                <div class="form-group">
+                    <label>Profile image</label>
+                    <input type="text" class="form-control" name="profileImg" value="{{user.profileImg}}">
+                </div>
+
+                {{#if isAdmin}}
+                <div class="form-group">
+                    <label for="type-list">Role</label>
+                    <select name="role" class="form-control" id="role-list">
+                        <option>Select</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="OWNER">Owner</option>
+                        <option value="GUEST">Guest</option>
+                    </select>
+                    <p><small>Currently: {{user.role}}</small></p>
+                </div>
+                {{/if}}
+
+                <button type="submit" class="btn btn-dark">Save</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

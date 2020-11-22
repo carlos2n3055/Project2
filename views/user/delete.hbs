@@ -1,0 +1,26 @@
+<h2><strong>Users</strong></h2>
+<hr>
+<div class="container">
+
+    {{#each allUsers}}
+    <div class="row">
+        <ul>
+            <li>
+                <p>{{this.username}}</p>
+                <div class="row">
+
+                    <form action="/user-zone/delete?user_id={{_id}}" method="POST">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1">Delete</button>
+                    </form>
+
+                    <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
+                        <button type="submit" class="btn btn-dark btn-sm mx-1">Change Role</button>
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+    {{/each}}
+
+</div>

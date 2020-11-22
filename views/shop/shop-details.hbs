@@ -1,0 +1,48 @@
+<div class="container coasters-index">
+
+    <p id="shopIDtoMap">{{_id}}</p>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <img src="{{shopImg}}" alt="{{name}} image">
+
+            <h1 style="font-weight: 100">{{name}}</h1>
+
+            <hr>
+
+            <p>{{description}}</p>
+            <p>{{nationality}}</p>
+            <p>Opening hours: {{schedule}}</p>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-6">
+                    <a href="/shops/delete?id={{_id}}" class="btn btn-dark mx-1">Delete</a>
+                    <a href="/shops/edit?id={{_id}}" class="btn btn-dark mx-1">Edit</a>
+                </div>
+                <div class="col-6">
+                    <a href="/shops" class="btn btn-dark mx-1">Back to shops</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div id="shopMap"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{{!-- Scripts estáticos --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="/javascripts/styles.js"></script>
+<script src="/javascripts/shop-details-map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=KEYYYYYY&callback=initApp"></script>

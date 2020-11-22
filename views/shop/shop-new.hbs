@@ -1,0 +1,58 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h1 style="font-weight: 100">New shop</h1>
+        </div>
+
+        <div class="col-md-6">
+
+            <form action="/shops/new" method="POST">
+
+                <div class="form-group">
+                    <label for="name-input">Name</label>
+                    <input name="name" type="text" class="form-control" id="name-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="type-list">Nationality:</label>
+                    <select name="nationality" class="form-control" id="nationality-list">
+                        <option>Select</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Colombian">Colombian</option>
+                        <option value="Chinese">Chinese</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name-input">Description</label>
+                    <input name="description" type="text" class="form-control" id="description-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="name-input">Schedule</label>
+                    <input name="schedule" type="text" class="form-control" id="schedule-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="latitude-input">Latitude</label>
+                    <input name="latitude" type="text" class="form-control" id="latitude-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="longitude-input">Longitude</label>
+                    <input name="longitude" type="text" class="form-control" id="longitude-input">
+                </div>
+
+                <button type="submit" class="btn btn-success">Create Shop</button>
+                <a href="/shops" class="btn btn-dark">Back to shops</a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
