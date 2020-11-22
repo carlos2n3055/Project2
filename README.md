@@ -1,4 +1,4 @@
-# SHOPS INTERNATIONALS
+# INTERNATIONAL SHOPS
 
 ## Shops: International shops finder (GET/POST)
 
