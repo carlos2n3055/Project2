@@ -1,0 +1,24 @@
+<div class="container places-index">
+
+    <div class="row justify-content-between">
+        <h1 style="font-weight: 100">My favorite shops</h1>
+    </div>
+
+
+    <ul>
+        {{#each favorites}}
+        <div class="col-md-3">
+            <article class="card">
+                <div class="card-body">
+                    <li>
+                        <a href="/shops/{{_id}}" class="btn btn-sm btn-dark">See Details</a>
+                        <h2>{{name}}</h2>
+                        <h3>Nationality: {{nationality}}</h3>
+                    </li>
+                </div>
+            </article>
+        </div>
+        {{/each}}
+    </ul>
+
+</div>

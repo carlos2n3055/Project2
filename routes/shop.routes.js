@@ -91,16 +91,14 @@ router.post('/edit', (req, res, next) => {
 
 // Muestra los detalles de una tienda --
 router.get('/:shop_id', (req, res, next) => {
-
-  // router.get('/:shop_id', checkRole(['ADMIN']), (req, res, next) => {
   
   const shopId = req.params.shop_id
-  console.log(req.user)
+  let isAdmin = req.user ? req.user.role.includes('ADMIN'): false
+
   Shop
       .findById(shopId)
-    .then(theShop => {
-        // res.render('shop/shop-details', { isAdmin: req.user.role.includes('ADMIN') }, theShop )
-        res.render('shop/shop-details', theShop )
+      .then(theShop => {
+      res.render('shop/shop-details', { isAdmin, theShop } )
         })
       .catch(err => next(new Error(err)))
 })

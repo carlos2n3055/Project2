@@ -17,10 +17,10 @@ const userSchema = new Schema({
         type: String
     },
     
-    // favorites: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Shop'
-    // }],
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Shop'
+    }],
     
     role: {
       type: String,

@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const passport = require("passport")
 const User = require("../models/user-model")
+const Shop = require('./../models/shop-model')
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 
@@ -13,9 +14,35 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 
 // ----- ENDPOINTS USER -----
 
-
 // Profile OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
+    
+
+// Favorites GET
+router.get('/favorites', (req, res, next) => {
+    
+    User
+        .findById(req.user._id)
+        .populate('favorites')
+        .then(theUser => {
+            res.render('user/favorites', theUser)
+        })
+        .catch(err => next(new Error(err)))
+})
+
+
+ //Favorites POST
+router.get('/favorites/:id', (req, res) => {
+  
+    const shopId = req.params.id
+    const favorites = req.user.favorites
+    favorites.push(shopId)
+    
+    User
+        .findByIdAndUpdate(req.user._id, { favorites })
+        .then(() => res.redirect('/shops'))
+
+})
 
 
 // -- SIGNUP --
