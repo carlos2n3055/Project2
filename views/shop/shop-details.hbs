@@ -21,13 +21,18 @@
             <hr>
 
             <div class="row">
-                <div class="col-6">
-                    <a href="/shops/delete?id={{_id}}" class="btn btn-dark mx-1">Delete</a>
-                    <a href="/shops/edit?id={{_id}}" class="btn btn-dark mx-1">Edit</a>
-                </div>
+
                 <div class="col-6">
                     <a href="/shops" class="btn btn-dark mx-1">Back to shops</a>
                 </div>
+
+                <div class="col-6">
+                    {{#if user}}
+                    <a href="/shops/edit?id={{_id}}" class="btn btn-dark mx-1">Edit</a>
+                    <a href="/shops/delete?id={{_id}}" class="btn btn-dark mx-1">Delete</a>
+                    {{/if}}
+                </div>
+
             </div>
 
         </div>
@@ -47,4 +52,4 @@
 
 <script src="/javascripts/styles.js"></script>
 <script src="/javascripts/shop-details-map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=KEYYYYYY&callback=initApp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{keymaps}}&callback=initApp"></script>

@@ -1,31 +1,32 @@
 <div class="container places-index">
 
-    <a href="/shops/new" class="btn btn-success">Add new shop</a>
+    <div class="row justify-content-between">
+        <h1 style="font-weight: 100">Shops</h1>
+        <a href="/shops/new" class="btn btn-success">Add new shop</a>
+    </div>
 
-    <h1 style="font-weight: 100">Shops</h1>
 
-    <div class="row">
-
-        <div class="col-md-8">
-            <div id="shopsMap"></div>
+    <ul>
+        {{#each allShops}}
+        <div class="col-md-3">
+            <article class="card">
+                <img class="card-img-top" src="{{shopImg}}" alt="{{name}} image">
+                <div class="card-body">
+                    <li>
+                        <a href="/shops/{{_id}}" class="btn btn-sm btn-dark">See Details</a>
+                        <h2>{{name}}</h2>
+                        <h3>Nationality: {{nationality}}</h3>
+                        <h4>{{description}}</h4>
+                    </li>
+                </div>
+            </article>
         </div>
+        {{/each}}
+    </ul>
 
-        <div class="col-md-4">
-            <ul>
-                {{#each allShops}}
-                <li>
-                    <a href="/shops/{{_id}}" class="btn btn-sm btn-dark">See Details</a>
-                    <img src="{{shopImg}}" alt="{{name}} image">
-                    <h2>{{name}}</h2>
-                    <h3>Nationality: {{nationality}}</h3>
-                    <h4>{{description}}</h4>
 
-                    <hr>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-
+    <div class="col-md-8">
+        <div id="shopsMap"></div>
     </div>
 
 </div>
@@ -36,4 +37,4 @@
 
 <script src="/javascripts/styles.js"></script>
 <script src="/javascripts/shops-map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=KEYYYYY&callback=initApp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{keymaps}}&callback=initApp"></script>

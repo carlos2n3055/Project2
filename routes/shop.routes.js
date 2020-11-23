@@ -1,7 +1,12 @@
 const express = require('express')
 const router = express.Router()
-
+const passport = require("passport")
+const { findById } = require('../models/user-model')
+const User = require("../models/user-model")
 const Shop = require('./../models/shop-model')
+
+const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
+const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
 
 
 
@@ -42,7 +47,7 @@ router.post('/new', (req, res, next) => {
 
 
 // Elimina de la BBDD la tienda
-router.get('/delete', (req, res, next) => {
+router.get('/delete', ensureAuthenticated, checkRole(['ADMIN', 'OWNER']), (req, res, next) => {
 
     const shopId = req.query.id
 
@@ -60,7 +65,7 @@ router.get('/edit', (req, res, next) => {
     
     Shop
         .findById(shopId)
-        .then(shopInfo => res.render('shop/shop-edit', shopInfo))
+        .then(shopInfo => res.render('shop/shop-edit', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }, shopInfo))
         .catch(err => next(new Error(err)))
 })
 
@@ -87,14 +92,17 @@ router.post('/edit', (req, res, next) => {
 // Muestra los detalles de una tienda --
 router.get('/:shop_id', (req, res, next) => {
 
-    const shopId = req.params.shop_id
-
-    Shop
-        .findById(shopId)
-        .then(theShop => {
-            res.render('shop/shop-details', theShop)
+  // router.get('/:shop_id', checkRole(['ADMIN']), (req, res, next) => {
+  
+  const shopId = req.params.shop_id
+  console.log(req.user)
+  Shop
+      .findById(shopId)
+    .then(theShop => {
+        // res.render('shop/shop-details', { isAdmin: req.user.role.includes('ADMIN') }, theShop )
+        res.render('shop/shop-details', theShop )
         })
-        .catch(err => next(new Error(err)))
+      .catch(err => next(new Error(err)))
 })
 
 
