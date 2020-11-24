@@ -142,17 +142,16 @@ router.post('/delete', (req, res, next) => {
 
 
 // -- CHANGE ROLE -- POST
-router.post('/change-role', (req, res) => {
+router.post('/change-role', (req, res, next) => {
 
     const userId = req.query.user_id
 
-    // const role = req.body
-    console.log(req.body)
+    const { role } = req.body
 
-    // User
-    //     .findByIdAndUpdate(userId, { role })
-    //     .then(() => res.redirect('/user-zone/change-role'))
-    //     .catch(err => next(new Error(err)))
+    User
+        .findByIdAndUpdate(userId, { role })
+        .then(() => res.redirect('/user-zone/delete'))
+        .catch(err => next(new Error(err)))
 })
 
 

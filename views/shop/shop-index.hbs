@@ -24,8 +24,7 @@
             <a href="/shops/{{_id}}" class="btn btn-sm btn-dark">See Details</a>
             <a href="/user-zone/favorites/{{_id}}" class="btn btn-sm btn-dark">Add to favorites</a>
 
-            {{!-- NO MUESTRA EL BOTON DE DELETE EN CADA TIENDA (SOLO ADMIN) --}}
-            {{#if ../isAdminOwner}}
+            {{#if ../isAdmin}}
             <a href="/shops/delete/{{_id}}" class="btn btn-sm btn-danger">Delete</a>
             {{/if}}
 

@@ -16,6 +16,8 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 // Muestra la lista de las tiendas (GET)
 router.get('/', (req, res, next) => {
 
+  let isAdmin = req.user ? req.user.role.includes('ADMIN') : false
+  
   let isAdminOwner
   
   if (req.user && (req.user.role.includes('ADMIN') || req.user.role.includes('OWNER'))) {
@@ -27,7 +29,7 @@ router.get('/', (req, res, next) => {
   Shop
       .find()
       .then(allShops => {
-        res.render('shop/shop-index', { isAdminOwner, allShops })
+        res.render('shop/shop-index', { isAdmin, isAdminOwner, allShops })
       })
       .catch(err => next(new Error(err)))
 })
@@ -42,11 +44,14 @@ router.post('/new', (req, res, next) => {
 
   const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
 
+  const tempLatitude = latitude === "" ? 40.41880845178171: latitude
+  const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
+
   const location = {
     type: 'Point',
-    coordinates: [latitude, longitude]
+    coordinates: [tempLatitude, tempLongitude]
   }
-
+ console.log(latitude)
   Shop
       .create({ name, shopImg, nationality, description, schedule, location })
       .then(() => res.redirect('/shops'))
@@ -67,13 +72,13 @@ router.get('/delete', ensureAuthenticated, checkRole(['ADMIN', 'OWNER']), (req, 
 
 
 // Muestra el formulario para editar una tienda (render)
-router.get('/edit', (req, res, next) => {
+router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
-    const shopId = req.query.id
-    
+  const shopId = req.query.id
+
     Shop
         .findById(shopId)
-        .then(shopInfo => res.render('shop/shop-edit', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }, shopInfo))
+        .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
         .catch(err => next(new Error(err)))
 })
 
@@ -85,9 +90,12 @@ router.post('/edit', (req, res, next) => {
 
     const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
 
+    const tempLatitude = latitude === "" ? 40.41880845178171: latitude
+    const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
+  
     const location = {
       type: 'Point',
-      coordinates: [latitude, longitude]
+      coordinates: [tempLatitude, tempLongitude]
     }
 
     Shop
