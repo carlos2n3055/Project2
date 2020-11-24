@@ -32,16 +32,26 @@ router.get('/favorites', (req, res, next) => {
 
 
  //Favorites POST
-router.get('/favorites/:id', (req, res) => {
+router.get('/favorites/:id', ensureAuthenticated, (req, res, next) => {
   
-    const shopId = req.params.id
-    const favorites = req.user.favorites
-    favorites.push(shopId)
+    const favorites = req.params.id
     
     User
-        .findByIdAndUpdate(req.user._id, { favorites })
+        .findByIdAndUpdate(req.user._id, { $addToSet: { favorites } })
         .then(() => res.redirect('/shops'))
+        .catch(err => next(new Error(err)))
+})
 
+
+// Favorites Delete
+router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => { 
+
+    const favorites = req.params.id
+
+    User
+        .findByIdAndUpdate(req.user._id, { $pull: { favorites } })
+        .then(() => res.redirect('/user-zone/favorites'))
+        .catch(err => next(new Error(err)))
 })
 
 
@@ -128,6 +138,21 @@ router.post('/delete', (req, res, next) => {
         .findByIdAndDelete(userId)
         .then(() => res.redirect('/user-zone/delete'))
         .catch(err => next(new Error(err)))
+})
+
+
+// -- CHANGE ROLE -- POST
+router.post('/change-role', (req, res) => {
+
+    const userId = req.query.user_id
+
+    // const role = req.body
+    console.log(req.body)
+
+    // User
+    //     .findByIdAndUpdate(userId, { role })
+    //     .then(() => res.redirect('/user-zone/change-role'))
+    //     .catch(err => next(new Error(err)))
 })
 
 

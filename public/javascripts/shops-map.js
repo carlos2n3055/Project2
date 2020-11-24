@@ -34,23 +34,23 @@ function drawMarkers(shops) {
         switch (elm.nationality) {     // Para cambiar el Marker según el valor de la propiedad "nationality"
 
             case "Italian":
-                imgMarker = "/images/coffeeMarker.png"
+                imgMarker = "/images/markers/coffeeMarker.png"
                 break
             
             case "Mexican":
-                imgMarker = "/images/bookMarker.png"
+                imgMarker = "/images/markers/bookMarker.png"
                 break
             
             case "Colombian":
-                imgMarker = "/images/bookMarker.png"
+                imgMarker = "/images/markers/bookMarker.png"
                 break
             
             case "Chinese":
-                imgMarker = "/images/bookMarker.png"
+                imgMarker = "/images/markers/bookMarker.png"
                 break
             
             default:
-                imgMarker = "/images/defaultMarker.png"
+                imgMarker = "/images/markers/defaultMarker.png"
         }
    
         new google.maps.Marker({

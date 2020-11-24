@@ -66,21 +66,21 @@ const users = [
     username: 'admin',
     password: '$2b$10$jSe5XzQoeQglKVUTDETXI.Czg3am0HoLScbwcsAhc.u6VjUJWv.Am',
     profileImg: " ",
-    // favorites: " ",
+    favorites: [],
     role: 'ADMIN'
   },
   {
     username: 'owner',
     password: '$2b$10$VRwRQU8M9ffLKvcsOzlj5.1KbHMWIkcERF3YxWVEXlgivSQC9ftvy',
     profileImg: " ",
-    // favorites: " ",
+    favorites: [],
     role: 'OWNER'
   },
   {
     username: 'guest',
     password: '$2b$10$PVWsamuTiuaBTfB/BlxPheJ7prxHHmdBYOEH7P0/TyVlAUFjZhO0W',
     profileImg: " ",
-    // favorites: " ",
+    favorites: [],
     role: 'GUEST'
   }
 ]

@@ -16,10 +16,18 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 // Muestra la lista de las tiendas (GET)
 router.get('/', (req, res, next) => {
 
+  let isAdminOwner
+  
+  if (req.user && (req.user.role.includes('ADMIN') || req.user.role.includes('OWNER'))) {
+    isAdminOwner = true
+  } else {
+    isAdminOwner = false
+  }
+
   Shop
       .find()
       .then(allShops => {
-        res.render('shop/shop-index', { allShops })
+        res.render('shop/shop-index', { isAdminOwner, allShops })
       })
       .catch(err => next(new Error(err)))
 })

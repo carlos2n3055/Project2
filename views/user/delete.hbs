@@ -13,8 +13,17 @@
                         <button type="submit" class="btn btn-danger btn-sm mx-1">Delete</button>
                     </form>
 
-                    <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
-                        <button type="submit" class="btn btn-dark btn-sm mx-1">Change Role</button>
+                    <form action="/user-zone/change-role?user_id={{_id}}" method="POST"></form>
+                    <div class="form-group">
+                        <label for="type-list">Role:</label>
+                        <select name="role" class="form-control" id="role-list">
+                            <option>{{role}}</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="OWNER">Owner</option>
+                            <option value="GUEST">Guest</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-sm mx-1">Save</button>
                     </form>
 
                 </div>

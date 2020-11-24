@@ -1,22 +1,22 @@
 <div class="container coasters-index">
 
     <div class="d-none">
-        <p id="shopIDtoMap">{{_id}}</p>
+        <p id="shopIDtoMap">{{theShop._id}}</p>
     </div>
 
     <div class="row">
 
         <div class="col-md-6">
 
-            <img src="{{shopImg}}" alt="{{name}} image">
+            <img src="{{theShop.shopImg}}" alt="{{theShop.name}} image">
 
-            <h1 style="font-weight: 100">{{name}}</h1>
+            <h1 style="font-weight: 100">{{theShop.name}}</h1>
 
             <hr>
 
-            <p>{{description}}</p>
-            <p>{{nationality}}</p>
-            <p>Opening hours: {{schedule}}</p>
+            <p>{{theShop.description}}</p>
+            <p>{{theShop.nationality}}</p>
+            <p>Opening hours: {{theShop.schedule}}</p>
 
             <hr>
 
@@ -28,8 +28,8 @@
 
                 <div class="col-6">
                     {{#if isAdmin}}
-                    <a href="/shops/edit?id={{_id}}" class="btn btn-dark mx-1">Edit</a>
-                    <a href="/shops/delete?id={{_id}}" class="btn btn-dark mx-1">Delete</a>
+                    <a href="/shops/edit?id={{theShop._id}}" class="btn btn-dark mx-1">Edit</a>
+                    <a href="/shops/delete?id={{theShop._id}}" class="btn btn-dark mx-1">Delete</a>
                     {{/if}}
                 </div>
 
