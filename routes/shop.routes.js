@@ -60,7 +60,7 @@ router.post('/new', (req, res, next) => {
 
 
 // Elimina de la BBDD la tienda
-router.get('/delete', ensureAuthenticated, checkRole(['ADMIN', 'OWNER']), (req, res, next) => {
+router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
     const shopId = req.query.id
 

@@ -32,6 +32,10 @@ const shopSchema = new Schema({
       type: String  //REVISAR PROBLEMA AL CREAR UNA SHOP QUE SI NO METES COORDENADAS DA ERROR.!!!!!!!!!!!!!!!!!
     },
     coordinates: [Number]
+  },
+
+  owner: {
+    type: String
   }
   
 }, {

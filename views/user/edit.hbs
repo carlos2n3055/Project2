@@ -13,7 +13,6 @@
                     <input type="text" class="form-control" name="username" value="{{user.username}}">
                 </div>
 
-                {{!-- AGREGAR COMENTARIO PARA QUE PIDA SIEMPRE LA CONTRASEÑA PARA MODIFICACIONES DEL PERFIL --}}
                 <div class=" form-group">
                     <label>Password</label>
                     <input type="password" class="form-control" name="password" placeholder='******'>
@@ -26,6 +25,11 @@
 
                 <button type="submit" class="btn btn-dark">Save</button>
                 <a href="/user-zone/profile" class="btn btn-dark">Cancel</a>
+
+                {{#if errorMsg}}
+                <p style="margin-top: 10px;background: red; color: white; text-align: center; padding: 10px">
+                    {{errorMsg}}</p>
+                {{/if}}
 
             </form>
 

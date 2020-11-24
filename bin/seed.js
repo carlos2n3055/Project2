@@ -91,4 +91,4 @@ User
     console.log(`Created ${allUsersCreated.length} users`)
     mongoose.connection.close()
   })
-    .catch(err => next(new Error(err)))
+  .catch(err => next(new Error(err)))

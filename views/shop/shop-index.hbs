@@ -25,8 +25,12 @@
             <a href="/user-zone/favorites/{{_id}}" class="btn btn-sm btn-dark">Add to favorites</a>
 
             {{#if ../isAdmin}}
-            <a href="/shops/delete/{{_id}}" class="btn btn-sm btn-danger">Delete</a>
+            <a href="/shops/delete?id={{_id}}" class="btn btn-sm btn-danger">Delete</a>
             {{/if}}
+
+            {{!-- {{#if ../isAdmin}}
+            <a href="/shops/delete/{{_id}}" class="btn btn-sm btn-danger">Delete</a>
+            {{/if}} --}}
 
         </div>
     </div>

@@ -9,11 +9,6 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 // Endpoints
 router.get('/', (req, res) => res.render('index'))
 
-// router.get('/user/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
-// router.get('/editar-contentidos', ensureAuthenticated, checkRole(['EDITOR', 'ADMIN']), (req, res) => res.render('context-editor', { user: req.user }))
-// router.get('/admin-zone', ensureAuthenticated, checkRole(['ADMIN']), (req, res) => res.render('admin', { user: req.user }))
-
-
 
 
 module.exports = router

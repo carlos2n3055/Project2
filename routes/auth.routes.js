@@ -15,7 +15,7 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 // ----- ENDPOINTS USER -----
 
 // Profile OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
+router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN'), isOwner: req.user.role.includes('OWNER') }))
     
 
 // Favorites GET
@@ -53,6 +53,20 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
         .then(() => res.redirect('/user-zone/favorites'))
         .catch(err => next(new Error(err)))
 })
+
+// My-Shops GET  FALTAAAAAAAAAAAAAAAAAAAAAAA
+router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
+
+    const userId = req.user._id
+
+    Shop
+        .find({ owner: userId })
+        .then(ownerShops => {
+            res.render('user/owner-shops', { ownerShops })
+        })
+        .catch(err => next(new Error(err)))
+})
+
 
 
 // -- SIGNUP --
@@ -174,52 +188,23 @@ router.post('/edit', (req, res, next) => {
 
     const userId = req.query.user_id
     
+    const { username, password, profileImg, } = req.body
+
+    if (username === "") {
+        res.render('user/edit', {errorMsg: "Please fill username"})
+        return
+    } else if (password === "") {
+        res.render('user/edit', {errorMsg: "Please fill password"})
+        return
+    }
+
+    const salt = bcrypt.genSaltSync(bcryptSalt)
+    const hashPass = bcrypt.hashSync(password, salt)
+
     User
-        .findById(userId)
-        .then(userInfo => {
-
-            if (userInfo.role === "ADMIN") { // Con Role = ADMIN se permite modificar el Role del ADMIN
-                const {
-                    username,
-                    password,
-                    profileImg,
-                    role
-                } = req.body
-
-                const salt = bcrypt.genSaltSync(bcryptSalt)
-                const hashPass = bcrypt.hashSync(password, salt)
-
-                User
-                    .findByIdAndUpdate(userId, {
-                        username,
-                        password: hashPass,
-                        profileImg,
-                        role
-                    })
-                    .then(userInfo => res.redirect('/'))
-                    .catch(err => next(new Error(err)))
-
-            } else { // Cuando el Role no es igual a ADMIN no se permite modificar el Role
-
-                const {
-                    username,
-                    password,
-                    profileImg,
-                } = req.body
-
-                const salt = bcrypt.genSaltSync(bcryptSalt)
-                const hashPass = bcrypt.hashSync(password, salt)
-
-                User
-                    .findByIdAndUpdate(userId, {
-                        username,
-                        password: hashPass,
-                        profileImg,
-                    })
-                    .then(userInfo => res.redirect('/'))
-                    .catch(err => next(new Error(err)))
-            }
-        })
+        .findByIdAndUpdate(userId, { username, password: hashPass, profileImg, })
+        .then(userInfo => res.redirect('/user-zone/profile'))
+        .catch(err => next(new Error(err)))
 })
 
 
