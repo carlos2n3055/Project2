@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container listShops">
         <div class="row">
             <div class="col-md-6">
                 <h1 class="title">LIST OF SHOPS</h1>
@@ -14,12 +14,11 @@
             </div>
         </div>
 
-
     <hr>
 
     <div class="row justify-content-left">
         {{#each allShops}}
-        <div class=" shop-info col-sm-6 col-md-4 text-left">
+        <div class="shop-info col-sm-6 col-md-4 text-left">
             <div>
                 <img src="{{shopImg}}" class="rounded mx-auto d-block" alt="{{name}} image">
             </div>
@@ -30,7 +29,8 @@
             <h5>{{description}}</h5>
             <p>Nationality: {{nationality}}</p>
             
-            <div style="justify-content: center">
+            {{!-- <div style="justify-content: center"> --}}
+            <div class="row justify-content-center align-items-end">
                 <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
                 <a href="/user-zone/favorites/{{_id}}" class="btn btn-sm btn-dark mx-2 btn-costum">Add to favorites</a>
 
@@ -46,7 +46,7 @@
 
     <hr>
 
-    <div class="container marginB">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div id="shopsMap"></div>
