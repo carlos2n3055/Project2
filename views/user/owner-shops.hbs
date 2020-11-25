@@ -1,8 +1,11 @@
-<div class="container">
+<div class="container coasters-index">
+
     <div class="row">
-        <div class="col-md-6">
+
+        <div class="col-md-7">
             <h1>MY SHOPS</h1>
         </div>
+
     </div>
 
     <div>
@@ -13,7 +16,7 @@
 
     <hr>
 
-    <div class="row justify-content-around">
+    <div class="row">
         {{#each ownerShops}}
         <div class=" shop-info col-sm-6 col-md-4 text-left">
             <div>
@@ -31,7 +34,7 @@
                     <button type="submit" class="btn btn-sm btn-dark mx-2 btn-costum">Edit</button>
                 </form>
                 <form action="/user-zone/del-shop-owner?shop_id={{_id}}" method="POST">
-                    <button type="submit" class="danger btn btn-sm btn-danger btn-costum">Delete</button>
+                    <button type="submit" class="danger btn btn-sm btn-danger btn-costum" style="background:#A59C94">Delete</button>
                 </form>
             </div>
         </div>
