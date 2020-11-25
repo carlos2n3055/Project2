@@ -34,19 +34,19 @@ function drawMarkers(shops) {
         switch (elm.nationality) {     // Para cambiar el Marker según el valor de la propiedad "nationality"
 
             case "Italian":
-                imgMarker = "/images/markers/coffeeMarker.png"
+                imgMarker = "/images/markers/italian-marker.png"
                 break
             
             case "Mexican":
-                imgMarker = "/images/markers/bookMarker.png"
+                imgMarker = "/images/markers/mexican-marker.png"
                 break
             
             case "Colombian":
-                imgMarker = "/images/markers/bookMarker.png"
+                imgMarker = "/images/markers/colombian-marker.png"
                 break
             
             case "Chinese":
-                imgMarker = "/images/markers/bookMarker.png"
+                imgMarker = "/images/markers/chinese-marker.png"
                 break
             
             default:
