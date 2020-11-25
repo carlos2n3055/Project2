@@ -14,7 +14,7 @@ function drawMap() {
 
     mapInstance = new google.maps.Map(
         document.querySelector('#shopMap'),
-        { center: { lat: 39.863390, lng: -4.027755 }, zoom: 13, styles: mapStyles.retro }
+        { center: { lat: 39.863390, lng: -4.027755 }, zoom: 13, styles: mapStyles.celeste }
     )
 }
 
