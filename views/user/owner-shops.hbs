@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>MY SHOPS</h1>
+        </div>
+    </div>
+
+    <div>
+        <div class="col-md-6 new-shop-btn">
+            <a href="/shops/new" class="btn btn-success btn-sm btn-costum new-shop">Add new shop</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row justify-content-around">
+        {{#each ownerShops}}
+        <div class=" shop-info col-sm-6 col-md-4 text-left">
+            <div>
+                <img src="{{shopImg}}" class="rounded mx-auto d-block" alt="{{name}} image">
+            </div>
+
+            <h1>{{name}}</h1>
+            <hr>
+            <h5>{{description}}</h5>
+            <p>Nationality: {{nationality}}</p>
+
+            <div class="row">
+                <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
+                <form action="/user-zone/edit-shop-owner?shop_id={{_id}}" method="POST">
+                    <button type="submit" class="btn btn-sm btn-dark mx-2 btn-costum">Edit</button>
+                </form>
+                <form action="/user-zone/del-shop-owner?shop_id={{_id}}" method="POST">
+                    <button type="submit" class="danger btn btn-sm btn-danger btn-costum">Delete</button>
+                </form>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <hr>
+
+</div>

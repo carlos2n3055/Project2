@@ -58,7 +58,9 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
 })
 
 
-// My-Shops GET  FALTAAAAAAAAAAAAAAAAAAAAAAA
+// ----- SHOP'S OWNER -----
+
+// Muestra el listado de las tiendas del Owner (GET)
 router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
 
     const userId = req.user._id
@@ -71,6 +73,29 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
         .catch(err => next(new Error(err)))
 })
 
+
+// Muestra el formulario para editar una tienda del Owner (POST)
+router.post('/edit-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
+
+  const shopId = req.query.shop_id
+
+    Shop
+        .findById(shopId)
+        .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
+        .catch(err => next(new Error(err)))
+})
+
+
+// Elimina de la BBDD la tienda del Owner (POST)
+router.post('/del-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
+
+    const shopId = req.query.shop_id
+
+    Shop
+        .findByIdAndDelete(shopId)
+        .then(() => res.redirect('/user-zone/my-shops'))
+        .catch(err => next(new Error(err)))
+})
 
 
 // ----- SIGNUP -----
@@ -178,7 +203,7 @@ router.post('/change-role', (req, res, next) => {
 
 
 
-// -----  EDIT PROFILE -----
+// -----  EDIT USER PROFILE -----
 
 // Muestra el formulario con los datos del usuario (GET)
 router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res, next) => {

@@ -32,6 +32,8 @@ router.get('/', (req, res, next) => {
 })
 
 
+// ----- NEW SHOP -----
+
 // Muestra el formulario para crear una tienda (GET)
 router.get('/new', (req, res) => res.render('shop/shop-new'))
 
@@ -40,6 +42,7 @@ router.get('/new', (req, res) => res.render('shop/shop-new'))
 router.post('/new', (req, res, next) => {
 
   const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
+  const owner = req.user.id
 
   const tempLatitude = latitude === "" ? 40.41880845178171: latitude
   const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
@@ -50,11 +53,13 @@ router.post('/new', (req, res, next) => {
   }
  console.log(latitude)
   Shop
-      .create({ name, shopImg, nationality, description, schedule, location })
+      .create({ name, shopImg, nationality, description, schedule, location, owner })
       .then(() => res.redirect('/shops'))
       .catch(err => next(new Error(err)))
 })
 
+
+// ----- DELETE SHOP -----
 
 // Elimina de la BBDD la tienda (GET)
 router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
@@ -67,6 +72,8 @@ router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next
         .catch(err => next(new Error(err)))
 })
 
+
+// ----- EDIT SHOP -----
 
 // Muestra el formulario para editar una tienda (GET)
 router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
@@ -101,6 +108,8 @@ router.post('/edit', (req, res, next) => {
         .catch(err => next(new Error(err)))
 })
 
+
+// ----- SHOP DETAILS -----
 
 // Muestra los detalles de una tienda (GET)
 router.get('/:shop_id', (req, res, next) => {
