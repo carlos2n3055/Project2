@@ -1,8 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const passport = require("passport")
-const { findById } = require('../models/user-model')
-const User = require("../models/user-model")
 const Shop = require('./../models/shop-model')
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
@@ -59,7 +56,7 @@ router.post('/new', (req, res, next) => {
 })
 
 
-// Elimina de la BBDD la tienda
+// Elimina de la BBDD la tienda (GET)
 router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
     const shopId = req.query.id
@@ -71,7 +68,7 @@ router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next
 })
 
 
-// Muestra el formulario para editar una tienda (render)
+// Muestra el formulario para editar una tienda (GET)
 router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
   const shopId = req.query.id
@@ -83,7 +80,7 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) 
 })
 
 
-// Edita en la BBDD la tienda (gestión)
+// Edita en la BBDD la tienda (POST)
 router.post('/edit', (req, res, next) => {
 
     const shopId = req.query.id
@@ -105,7 +102,7 @@ router.post('/edit', (req, res, next) => {
 })
 
 
-// Muestra los detalles de una tienda --
+// Muestra los detalles de una tienda (GET)
 router.get('/:shop_id', (req, res, next) => {
   
   const shopId = req.params.shop_id

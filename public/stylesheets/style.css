@@ -1,8 +1,26 @@
 body {
-  font-family: sans-serif; }
+  font-family: 'Montserrat', sans-serif; }
+
+h1 {
+  margin-top: 20px; }
 
 .navbar, .marginB {
+  margin-bottom: 50px; }
+
+.navbar-custom {
+  background-color: #919D9D; }
+
+.btn-costum {
+  background-color: #919D9D;
+  border: #919D9D;
   margin-bottom: 40px; }
+
+.new-shop-btn {
+  padding-left: 0; }
+
+.btn-costum:hover {
+  background-color: #A4BCC2;
+  border: #A4BCC2; }
 
 img {
   width: 50%;
@@ -13,5 +31,20 @@ img {
 #shopMap {
   height: 500px;
   background-color: grey; }
+
+.shop-info img {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+  object-fit: cover; }
+
+.detail-img {
+  border-radius: 10px; }
+
+.list {
+  padding-left: 0; }
+
+.list2 {
+  padding-left: 0; }
 
 /*# sourceMappingURL=style.css.map */

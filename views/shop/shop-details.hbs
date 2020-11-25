@@ -6,16 +6,16 @@
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-7">
 
-            <img src="{{theShop.shopImg}}" alt="{{theShop.name}} image">
+            <img  class="detail-img" src="{{theShop.shopImg}}" alt="{{theShop.name}} image">
 
             <h1 style="font-weight: 100">{{theShop.name}}</h1>
 
             <hr>
 
             <p>{{theShop.description}}</p>
-            <p>{{theShop.nationality}}</p>
+            <p>Type of food: {{theShop.nationality}}</p>
             <p>Opening hours: {{theShop.schedule}}</p>
 
             <hr>
@@ -23,13 +23,13 @@
             <div class="row">
 
                 <div class="col-6">
-                    <a href="/shops" class="btn btn-dark mx-1">Back to shops</a>
+                    <a href="/shops" class="btn btn-dark btn-costum">Back to shops</a>
                 </div>
 
                 <div class="col-6">
                     {{#if isAdmin}}
-                    <a href="/shops/edit?id={{theShop._id}}" class="btn btn-dark mx-1">Edit</a>
-                    <a href="/shops/delete?id={{theShop._id}}" class="btn btn-dark mx-1">Delete</a>
+                    <a href="/shops/edit?id={{theShop._id}}" class="btn btn-dark mx-1 btn-costum">Edit</a>
+                    <a href="/shops/delete?id={{theShop._id}}" class="btn btn-dark mx-1 btn-costum">Delete</a>
                     {{/if}}
                 </div>
 
@@ -37,7 +37,7 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div id="shopMap"></div>
         </div>
 

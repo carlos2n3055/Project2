@@ -1,20 +1,22 @@
 <div class="container places-index">
 
     <div class="row justify-content-between">
-        <h1 style="font-weight: 100">My favorite shops</h1>
+        <h1 style="font-weight: 150">My favorite shops</h1>
     </div>
 
+    <hr>
 
-    <ul>
+    <ul class="list">
         {{#each favorites}}
-        <div class="col-md-3">
-            <article class="card">
-                <div class="card-body">
+        <div class="col-md-4 list2">
+            <article class="list-group">
+                <div>
                     <li>
-                        <h2>{{name}}</h2>
-                        <h3>Nationality: {{nationality}}</h3>
-                        <a href="/shops/{{_id}}" class="btn btn-sm btn-dark">See Details</a>
-                        <a href="/user-zone/favorite-del/{{_id}}" class="btn btn-sm btn-danger">Delete</a>
+                        <h1>{{name}}</h1>
+                        <h5>Nationality: {{nationality}}</h5>
+                        <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
+                        <a href="/user-zone/favorite-del/{{_id}}"
+                            class="btn btn-sm btn-dark mx-2 btn-costum ">Delete</a>
                     </li>
                 </div>
             </article>

@@ -2,18 +2,25 @@
 
     <div class="row justify-content-center">
 
-        <h2><strong>Welcome {{user.username}}</strong></h2>
-        <img src="{{profileImg}}" alt="{{username}} image">
-        <a href="/user-zone/edit" class="btn btn-sm btn-dark mx-2">Edit</a>
-        <a href="/user-zone/favorites" class="btn btn-sm btn-dark mx-2">My favorite shops</a>
+        <div class="col-md-10">
 
-        {{#if isAdmin}}
-        <a href="/user-zone/delete" class="btn btn-dark">Users List</a>
-        {{/if}}
+            <h1>Welcome back <strong>{{user.username}}</strong></h1>
+            <img src="{{user.profileImg}}" alt="{{user.username}} image">
 
-        {{#if isOwner}}
-        <a href="/user-zone/my-shops" class="btn btn-dark">My Shops</a>
-        {{/if}}
+            <hr>
+
+            <a href="/user-zone/edit" class="btn btn-sm btn-dark btn-costum">Edit</a>
+            <a href="/user-zone/favorites" class="btn btn-sm btn-dark mx-2 btn-costum">My favorite shops</a>
+
+            {{#if isAdmin}}
+            <a href="/user-zone/delete" class="btn btn-sm btn-dark btn-costum">Users List</a>
+            {{/if}}
+
+            {{#if isOwner}}
+            <a href="/user-zone/my-shops" class="btn btn-sm btn-dark btn-costum">My Shops</a>
+            {{/if}}
+
+        </div>
 
     </div>
 

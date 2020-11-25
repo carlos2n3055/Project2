@@ -6,7 +6,6 @@ const Shop = require('./../models/shop-model')
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 
-
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
 
@@ -14,11 +13,15 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 
 // ----- ENDPOINTS USER -----
 
-// Profile OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN'), isOwner: req.user.role.includes('OWNER') }))
-    
 
-// Favorites GET
+// Ver página del perfil del usuario (GET)
+router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN'), isOwner: req.user.role.includes('OWNER') }))
+   
+
+
+// ----- FAVORITES -----
+
+// Ver favoritos (GET)
 router.get('/favorites', (req, res, next) => {
     
     User
@@ -31,7 +34,7 @@ router.get('/favorites', (req, res, next) => {
 })
 
 
- //Favorites POST
+ // Añadir shop a favoritos del usuario (POST)
 router.get('/favorites/:id', ensureAuthenticated, (req, res, next) => {
   
     const favorites = req.params.id
@@ -43,7 +46,7 @@ router.get('/favorites/:id', ensureAuthenticated, (req, res, next) => {
 })
 
 
-// Favorites Delete
+// Borrar shop de favoritos del usuario (GET)
 router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => { 
 
     const favorites = req.params.id
@@ -53,6 +56,7 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
         .then(() => res.redirect('/user-zone/favorites'))
         .catch(err => next(new Error(err)))
 })
+
 
 // My-Shops GET  FALTAAAAAAAAAAAAAAAAAAAAAAA
 router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
@@ -69,13 +73,13 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
 
 
 
-// -- SIGNUP --
+// ----- SIGNUP -----
 
-// Añadir nuevo usuario (renderizar) (GET) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Muestra el formulario para añadir nuevo usuario (GET)
 router.get('/signup', (req, res) => res.render('auth/signup', { user: req.user }))
 
 
-// Añadir usuarios (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Añadir usuarios en la BBDD (POST)
 router.post('/signup', (req, res, next) => {
 
     const {
@@ -96,7 +100,7 @@ router.post('/signup', (req, res, next) => {
         })
         .then(user => {
             if (user) {
-                res.render("auth/signup", {errorMsg: "Please change the username. User exists"})
+                res.render('auth/signup', {errorMsg: "Please change the username. User exists"})
                 return
             }
 
@@ -110,29 +114,32 @@ router.post('/signup', (req, res, next) => {
                     role
                 })
                 .then(() => res.redirect('/'))
-                .catch(() => res.render("auth/signup", {errorMsg: "Error: User not created"}))
+                .catch(() => res.render('auth/signup', {errorMsg: "Error: User not created"}))
         })
         .catch(err => next(new Error(err)))
 })
 
 
-// --  LOGIN  --
 
-// Inicio sesión (renderizado formulario) (GET) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.get("/login", (req, res) => res.render("auth/login", {errorMsg: req.flash("error")}))
+// -----  LOGIN  -----
 
-// Inicio sesión (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.post("/login", passport.authenticate("local", {
-    successRedirect: "/user-zone/profile",
-    failureRedirect: "/user-zone/login",
+// Muestra el formulario de Inicio de Sesión (GET)
+router.get('/login', (req, res) => res.render('auth/login', {errorMsg: req.flash("error")}))
+
+
+// Inicio sesión (gestión) (POST)
+router.post('/login', passport.authenticate("local", {
+    successRedirect: '/user-zone/profile',
+    failureRedirect: '/user-zone/login',
     failureFlash: true,
     passReqToCallback: true
 }))
 
 
-// --  DELETE USERS  --
 
-// Lista de usuarios para borrar o cambiar role (renderizar) (GET) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// -----  DELETE USERS AND CHANGE ROLE -----
+
+// Muestra la lista de usuarios para borrar o cambiar role (GET)
 router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
   User
@@ -143,7 +150,8 @@ router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next
     .catch(err => next(new Error(err)))
 })
 
-// Borrar usuarios (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// Borrar usuarios (gestión) (POST)
 router.post('/delete', (req, res, next) => {
 
     const userId = req.query.user_id
@@ -155,7 +163,7 @@ router.post('/delete', (req, res, next) => {
 })
 
 
-// -- CHANGE ROLE -- POST
+// Cambia el role de los usuarios (POST)
 router.post('/change-role', (req, res, next) => {
 
     const userId = req.query.user_id
@@ -169,9 +177,10 @@ router.post('/change-role', (req, res, next) => {
 })
 
 
-// --  EDIT PROFILE --
 
-// Editar perfil (renderizar) (GET) OK!!!!!!!!!!!!!!!!!!!
+// -----  EDIT PROFILE -----
+
+// Muestra el formulario con los datos del usuario (GET)
 router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res, next) => {
 
   const userId = req.user._id
@@ -183,7 +192,7 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']),
 })
 
 
-// Editar perfil (gestión) (POST) OK!!!!!!!!!!!!!!!!!!!!!
+// Edita en la BBDD los datos del usuario (POST)
 router.post('/edit', (req, res, next) => {
 
     const userId = req.query.user_id
@@ -208,7 +217,8 @@ router.post('/edit', (req, res, next) => {
 })
 
 
-// -- LOGOUT --  OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// ----- LOGOUT -----
 router.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/user-zone/login')
