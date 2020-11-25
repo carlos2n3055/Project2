@@ -1,38 +1,43 @@
 <div class="container">
 
-    <h1><strong>Active users</strong></h1>
-    <hr>
-
-    {{#each allUsers}}
-    <div class="row">
-        <ul>
-            <li>
-                <h5>Username: {{this.username}}</h5>
-                <div class="row">
-
-                    <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
-                        <div class="form-group">
-                            <label for="type-list">Role:</label>
-                            <select name="role" class="form-control" id="role-list">
-                                <option>{{role}}</option>
-                                <option value="ADMIN">Admin</option>
-                                <option value="OWNER">Owner</option>
-                                <option value="GUEST">Guest</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-dark btn-sm mx-1 btn-costum">Save changes</button>
-                    </form>
-
-                    <form action="/user-zone/delete?user_id={{_id}}" method="POST">
-                        <button type="submit" class="btn btn-dark btn-sm mx-1 btn-costum" style="background:#A59C94">Delete</button>
-                    </form>
-
-                </div>
-            </li>
-        </ul>
-
+    <div class="row justify-content-between">
+        <h1 style="font-weight: 150">Active users:</h1>
     </div>
+
     <hr>
-    {{/each}}
+
+    <ul class="list">
+        {{#each allUsers}}
+        <li>
+            <h5>Username: {{this.username}}</h5>
+            <div class="row">
+
+                <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
+                    <div class="form-group">
+                        <label for="type-list">Role:</label>
+                        <select name="role" class="form-control" id="role-list">
+                            <option>{{role}}</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="OWNER">Owner</option>
+                            <option value="GUEST">Guest</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-sm btn-costum">Save changes</button>
+                </form>
+            </div>
+
+            <a href="/user-zone/delete" class="btn btn-dark btn-sm btn-costum">Back</a>
+
+            <div>
+                <form action="/user-zone/delete?user_id={{_id}}" method="POST">
+                    <button type="submit" class="btn btn-dark btn-sm btn-costum" style="background:#A59C94">Delete
+                        user</button>
+                </form>
+            </div>
+
+        </li>
+
+        {{/each}}
+    </ul>
 
 </div>

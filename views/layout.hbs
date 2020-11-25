@@ -23,25 +23,22 @@
 
     <div class='collapse navbar-collapse' id='navbarSupportedContent'>
       <ul class='navbar-nav ml-auto'>
+        {{!-- <li class='nav-item'>
+          <a class='nav-link' href='#'>Filter</a>     // SI DA TIEMPO CREAMOS UN SEARCH DE SHOPS CON FILTROS DE BUSQUEDA
+        </li> --}}
+        <li class='nav-item'>
+          <a class='nav-link' href='/shops'>Shops</a>
+        </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            User zone
-          </a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Private Zone</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/user-zone/signup">Signup</a>
             <a class="dropdown-item" href="/user-zone/login">Login</a>
             <a class="dropdown-item" href="/user-zone/profile">Profile</a>
           </div>
         </li>
-        {{!-- <li class='nav-item'>
-          <a class='nav-link' href='#'>Filter</a>     // SI DA TIEMPO CREAMOS UN SEARCH DE SHOPS CON FILTROS DE BUSQUEDA
-        </li> --}}
         <li class='nav-item'>
           <a class='nav-link' href='/'>Home</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/shops'>Shops</a>
         </li>
         <li class='nav-item'>
           <a class='nav-link' href='/user-zone/logout'>Logout</a>
@@ -55,6 +52,7 @@
     {{{body}}}
   </main>
 
+  
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -70,5 +68,53 @@
 </body>
 
 
+<div>
+
+  <footer class="page-footer font-small blue">
+
+    <div class="footer-copyright text-center py-3">
+      <p>© 2020 Copyright: shopsINT_</p>
+    </div>
+
+  </footer>
+
+  {{!-- <footer class="page-footer font-small cyan darken-3">
+  
+    <div class="container">
+  
+      <div class="row">
+  
+        <div class="col-md-12 py-5">
+          <div class="mb-5 flex-center">
+  
+            <a class="fb-ic">
+              <i class="fab fa-facebook-square"></i>
+            </a>
+            <a class="tw-ic">
+              <i class="fab fa-twitter-square"></i>> 
+            </a>
+            <a class="gplus-ic">
+              <i class="fab fa-google-plus-square"></i>
+            </a>
+            <a class="ins-ic">
+              <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a class="pin-ic">
+              <i class="fab fa-pinterest-square"></i>
+            </a>
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="#"> shopsINT_.com</a>
+    </div>
+  
+  </footer> --}}
+
+</div>
 
 </html>
