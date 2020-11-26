@@ -23,7 +23,7 @@ router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST'
 
 // ----- FAVORITES -----
 
-// Ver favoritos (GET)  //COMPROBAR FIND
+// Ver favoritos (GET)
 router.get('/favorites', (req, res, next) => {
     
     User
@@ -62,7 +62,7 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
 
 // ----- SHOP'S OWNER -----
 
-// Muestra el listado de las tiendas del Owner (GET)  //COMPROBAR FIND
+// Muestra el listado de las tiendas del Owner (GET)
 router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
 
     const userId = req.user._id
@@ -76,13 +76,13 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
 })
 
 
-// Muestra el formulario para editar una tienda del Owner (POST)  //COMPROBAR FIND
+// Muestra el formulario para editar una tienda del Owner (POST)
 router.post('/edit-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
 
   const shopId = req.query.shop_id
 
     Shop
-        .findById(shopId)
+        .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"", location:"" })
         .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
         .catch(err => next(new Error(err)))
 })
@@ -168,14 +168,12 @@ router.post('/login', passport.authenticate("local", {
 
 // -----  DELETE USERS AND CHANGE ROLE -----
 
-// Muestra la lista de usuarios para borrar o cambiar role (GET)  //COMPROBAR FIND
+// Muestra la lista de usuarios para borrar o cambiar role (GET)
 router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
   User
-    .find()
-    .then(allUsers => res.render('user/delete', {
-      allUsers
-    }))
+    .find({}, { username:"", role:"" })
+    .then(allUsers => res.render('user/delete', { allUsers }))
     .catch(err => next(new Error(err)))
 })
 
@@ -215,9 +213,9 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']),
   const userId = req.user._id
 
     User
-      .findById(userId)
-      .then(userInfo => res.render('user/edit', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
-      .catch(err => next(new Error(err)))
+        .findById(userId, { username:"", password:"", profileImg:"" })
+        .then(userInfo => res.render('user/edit', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
+        .catch(err => next(new Error(err)))
 })
 
 
