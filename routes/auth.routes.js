@@ -6,9 +6,7 @@ const Shop = require('./../models/shop-model')
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 
-//find ()
-// const localUpload = require('./../configs/local-upload.config')   // Para cloudinary
-const CDNUpload = require('./../configs/cdn-upload.config')
+const CDNUpload = require('./../configs/cdn-upload.config')  // Cloudinary
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
@@ -25,7 +23,7 @@ router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST'
 
 // ----- FAVORITES -----
 
-// Ver favoritos (GET)
+// Ver favoritos (GET)  //COMPROBAR FIND
 router.get('/favorites', (req, res, next) => {
     
     User
@@ -64,7 +62,7 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
 
 // ----- SHOP'S OWNER -----
 
-// Muestra el listado de las tiendas del Owner (GET)
+// Muestra el listado de las tiendas del Owner (GET)  //COMPROBAR FIND
 router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
 
     const userId = req.user._id
@@ -78,7 +76,7 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
 })
 
 
-// Muestra el formulario para editar una tienda del Owner (POST)
+// Muestra el formulario para editar una tienda del Owner (POST)  //COMPROBAR FIND
 router.post('/edit-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
 
   const shopId = req.query.shop_id
@@ -108,15 +106,18 @@ router.post('/del-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, 
 router.get('/signup', (req, res) => res.render('auth/signup', { user: req.user }))
 
 
-// Añadir usuarios en la BBDD (POST)
-router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
+// Añadir usuarios en la BBDD (POST) FIND OK!!!!!!!!!!!!!!!!!
+// router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
 
-    const imgFile = req.file.path
+//     const imgFile = req.file.path
+
+
+router.post('/signup', (req, res, next) => {
 
     const {
         username,
         password,
-        role
+        profileImg  // para quitar del signup
     } = req.body
 
     if (username === "" || password === "") {
@@ -125,9 +126,7 @@ router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
     }
 
     User
-        .findOne({
-            username
-        })
+        .findOne({ username })
         .then(user => {
             if (user) {
                 res.render('auth/signup', {errorMsg: "Please change the username. User exists"})
@@ -140,8 +139,8 @@ router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
             User.create({
                     username,
                     password: hashPass,
-                    profileImg: imgFile,
-                    role
+                    // profileImg: imgFile,  // para quitar del signup y usar en el edit del user
+                    profileImg // para quitar del signup
                 })
                 .then(() => res.redirect('/'))
                 .catch(() => res.render('auth/signup', {errorMsg: "Error: User not created"}))
@@ -169,7 +168,7 @@ router.post('/login', passport.authenticate("local", {
 
 // -----  DELETE USERS AND CHANGE ROLE -----
 
-// Muestra la lista de usuarios para borrar o cambiar role (GET)
+// Muestra la lista de usuarios para borrar o cambiar role (GET)  //COMPROBAR FIND
 router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
 
   User
