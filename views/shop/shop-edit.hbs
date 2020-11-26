@@ -6,6 +6,8 @@
 
             <h2>EDIT SHOP</h2>
 
+            <hr>
+
             <form action="/shops/edit?id={{_id}}" method="POST">
 
                 <div class="form-group">
@@ -50,10 +52,12 @@
                     <input type="text" class="form-control" name="longitude" value="{{location.coordinates.[1]}}">
                 </div>
 
-                <button type="submit" class="btn btn-dark">Save</button>
-                <a href="/shops/{{_id}}" class="btn btn-dark">Cancel</a>
+                <button type="submit" class="btn btn-dark btn-costum">Save</button>
+                <a href="/shops/{{_id}}" class="btn btn-dark mx-2 btn-costum" style="background:#A59C94">Cancel</a>
 
             </form>
+
+            <hr>
 
         </div>
 

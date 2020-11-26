@@ -1,7 +1,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
+  // background: rgba(172, 163, 154, 0.3);        
 }
-
 
 h1 {
   margin-top: 20px;
@@ -24,11 +24,6 @@ h1 {
 .new-shop-btn {
   padding-left: 0;
 }
-
-// .btn-costum, .danger {                       // Que sea solo para el de DELETE
-//   background-color: #A59C94;
-//   border: #A59C94;
-// }
 
 .btn-costum:hover {
   background-color: #A4BCC2;
@@ -77,5 +72,18 @@ img {
 
 .height-home {
   height: 100vh;
-  
+}
+
+.align-all {
+  height: 130px;
+}
+
+.carousel {
+  max-height: 700px;
+  overflow: hidden;
+
+  .carousel-inner img {
+    width: 100%;
+    height: auto;
+  }
 }
