@@ -2,17 +2,34 @@ html {
   min-height: 100%;
   position: relative; }
 
+.hero-image {
+  background-image: url("../images/banner.jpeg");
+  height: 50%;
+  background-position: cover;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  padding-top: 100px; }
+
+.hero-text {
+  text-align: left;
+  position: absolute;
+  color: white;
+  padding-left: 40px; }
+
+.home-title {
+  font-size: 55px;
+  font-weight: bold;
+  padding-bottom: 20px;
+  word-spacing: 7px; }
+
 body {
   font-family: 'Montserrat', sans-serif;
-  background: rgba(172, 163, 154, 0.3);
   margin: 0;
   margin-bottom: 40px; }
 
 h1 {
   margin-top: 20px; }
-
-.navbar, .marginB {
-  margin-bottom: 50px; }
 
 .navbar-custom {
   background-color: #919D9D; }
@@ -56,7 +73,8 @@ img {
 
 .page-footer {
   background-color: #A4BCC2;
-  justify-content: center; }
+  justify-content: center;
+  margin-top: 20px; }
 
 footer {
   position: absolute;
@@ -70,12 +88,11 @@ footer {
   padding-bottom: 60px; }
 
 .shadowLink:hover {
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  box-shadow: 0px 0px 15px 15px #A4BCC2;
-  -webkit-box-shadow: 0px 0px 15px 15px #A4BCC2; }
+  box-shadow: 0px 0px 6px 6px #A4BCC2;
+  -webkit-box-shadow: 0px 0px 6px 6px #A4BCC2; }
 
 .title {
+  padding-top: 60px;
   padding-bottom: 20px; }
 
 .height-home {
@@ -83,12 +100,5 @@ footer {
 
 .align-all {
   height: 130px; }
-
-.carousel {
-  max-height: 700px;
-  overflow: hidden; }
-  .carousel .carousel-inner img {
-    width: 100%;
-    height: auto; }
 
 /*# sourceMappingURL=style.css.map */
