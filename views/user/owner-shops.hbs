@@ -1,45 +1,39 @@
 <div class="container coasters-index">
 
-    <div class="row">
-
-        <div class="col-md-7">
-            <h1>MY SHOPS</h1>
-        </div>
-
+    <div class="row justify-content-between">
+        <h1 style="font-weight: 150">My shops</h1>
     </div>
-
-    <div>
-        <div class="col-md-6 new-shop-btn">
-            <a href="/shops/new" class="btn btn-success btn-sm btn-costum new-shop">Add new shop</a>
-        </div>
-    </div>
-
+    
     <hr>
 
-    <div class="row">
+    <ul class="list">
         {{#each ownerShops}}
-        <div class=" shop-info col-sm-6 col-md-4 text-left">
-            <div>
-                <img src="{{shopImg}}" class="rounded mx-auto d-block" alt="{{name}} image">
-            </div>
+        <div class="col-md-4 list2">
+            <article class="list-group">
+                <div>
+                    <li>
+                        <h2>{{name}}</h2>
+                        <h5>Nationality: {{nationality}}</h5>
 
-            <h1>{{name}}</h1>
-            <hr>
-            <h5>{{description}}</h5>
-            <p>Nationality: {{nationality}}</p>
+                        <div class="row" style="justify-content: evenly">
+                            <a href="/shops/{{_id}}" class="btn-shopsbtn btn-sm btn-dark btn-costum">See Details</a>
+                            <form action="/user-zone/edit-shop-owner?shop_id={{_id}}" method="POST">
+                                <button type="submit" class="btn-shops btn btn-sm btn-dark mx-2 btn-costum">Edit</button>
+                            </form>
+                            <form action="/user-zone/del-shop-owner?shop_id={{_id}}" method="POST">
+                                <button type="submit" class="btn-shops btn btn-sm  btn-dark btn-costum"
+                                    style="background:#A59C94">Delete</button>
+                            </form>
+                        </div>
+                        
 
-            <div class="row">
-                <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
-                <form action="/user-zone/edit-shop-owner?shop_id={{_id}}" method="POST">
-                    <button type="submit" class="btn btn-sm btn-dark mx-2 btn-costum">Edit</button>
-                </form>
-                <form action="/user-zone/del-shop-owner?shop_id={{_id}}" method="POST">
-                    <button type="submit" class="danger btn btn-sm btn-danger btn-costum" style="background:#A59C94">Delete</button>
-                </form>
-            </div>
+                    </li>
+                </div>
+            </article>
         </div>
         {{/each}}
-    </div>
+    </ul>
+
 
     <hr>
 

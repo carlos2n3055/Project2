@@ -1,16 +1,21 @@
-<div class="container">
-
+<div class="container places-index">
     <div class="row justify-content-between">
-        <h1 style="font-weight: 150">Active users:</h1>
+        <h1 class="title" style="font-weight: 150">Active users:</h1>
     </div>
 
     <hr>
 
-    <ul class="list">
-        {{#each allUsers}}
-        <li>
-            <h5>Username: {{this.username}}</h5>
-            <div class="row">
+    <div class="row">
+
+    {{#each allUsers}}
+
+    <div class="col-3.5">
+
+        <div class="card" style="width: 18rem;">
+
+
+            <div class="card-body">
+                <h5 class="card-title">Username: {{this.username}}</h5>
 
                 <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
                     <div class="form-group">
@@ -24,20 +29,23 @@
                     </div>
                     <button type="submit" class="btn btn-dark btn-sm btn-costum">Save changes</button>
                 </form>
+                
+                <div style="display: flex;">
+                    <a href="/user-zone/profile" class="btn btn-dark btn-sm btn-costum">Back</a>
+                    <form action="/user-zone/delete?user_id={{_id}}" method="POST">
+                        <button type="submit" class="btn btn-dark btn-sm mx-2 btn-costum" style="background:#A59C94">Delete
+                            user</button>
+                    </form>
+                </div>
+
             </div>
 
-            <a href="/user-zone/delete" class="btn btn-dark btn-sm btn-costum">Back</a>
+        </div>
+    </div>
+ 
 
-            <div>
-                <form action="/user-zone/delete?user_id={{_id}}" method="POST">
-                    <button type="submit" class="btn btn-dark btn-sm btn-costum" style="background:#A59C94">Delete
-                        user</button>
-                </form>
-            </div>
+    {{/each}}
+    </div>
 
-        </li>
-
-        {{/each}}
-    </ul>
 
 </div>
