@@ -35,7 +35,7 @@ router.get('/new', (req, res) => res.render('shop/shop-new'))
 
 
 // Guarda en la BBDD una tienda (POST)
-router.post('/new', (req, res, next) => {
+router.post('/new', CDNUpload.single("imageFile"), (req, res, next) => {
 
   const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
   const owner = req.user.id
@@ -47,6 +47,8 @@ router.post('/new', (req, res, next) => {
     type: 'Point',
     coordinates: [tempLatitude, tempLongitude]
   }
+
+  const imgFile = req.file.path
 
   Shop
       .create({ name, shopImg, nationality, description, schedule, location, owner })
