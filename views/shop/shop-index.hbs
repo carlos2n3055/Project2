@@ -8,7 +8,7 @@
         <div>
             <div class="col-md-6 new-shop-btn">
                 {{#if isAdminOwner}}
-                <a href="#" class="btn btn-success btn-lg btn-sm btn-costum new-shop">Filter</a>
+                {{!-- <a href="#" class="btn btn-success btn-lg btn-sm btn-costum new-shop">Filter</a> --}}
                 <a href="/shops/new" class="btn btn-success btn-sm btn-dark btn-costum mx-2 new-shop">Add new shop</a>
                 {{/if}}
             </div>
@@ -22,12 +22,12 @@
         <div class=" shop-info col-sm-6 col-md-4 text-left">
             <div>
                 <a href="/shops/{{_id}}">
-                    <img src="{{shopImg}}" class="rounded mx-auto d-block shadowLink" alt="{{name}} image">
+                    <img src="{{shopImg}}" class="shop-img rounded mx-auto d-block shadowLink" alt="{{name}} image">
                 </a>
             </div>
 
             
-            <h1>{{name}}</h1>
+            <h1 class="title-shops">{{name}}</h1>
 
             <hr>
 
@@ -38,11 +38,11 @@
             
             <div style="justify-content: evenly">
 
-                <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
-                <a href="/user-zone/favorites/{{_id}}" class="btn btn-sm btn-dark mx-2 btn-costum">Add to favorites</a>
+                <a href="/shops/{{_id}}" class="btn-shops btn btn-sm btn-dark btn-costum">See Details</a>
+                <a href="/user-zone/favorites/{{_id}}" class="btn-shops btn btn-sm btn-dark mx-2 btn-costum">Add to favorites</a>
 
                 {{#if ../isAdmin}}
-                <a href="/shops/delete?id={{_id}}" class="danger btn btn-sm btn-dark btn-costum" style="background:#A59C94">Delete</a>
+                <a href="/shops/delete?id={{_id}}" class=" btn-shops btn btn-sm btn-dark btn-costum" style="background:#A59C94">Delete</a>
                 {{/if}}
 
             </div>
