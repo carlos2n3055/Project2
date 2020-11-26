@@ -15,12 +15,12 @@ html {
   text-align: left;
   position: absolute;
   color: white;
-  padding-left: 40px; }
+  padding-left: 60px; }
 
 .home-title {
   font-size: 55px;
   font-weight: bold;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   word-spacing: 7px; }
 
 body {
@@ -54,7 +54,9 @@ img {
 #shopsMap,
 #shopMap {
   height: 500px;
-  background-color: grey; }
+  background-color: grey;
+  margin-top: 30px;
+  border-radius: 10px; }
 
 .shop-info img {
   margin-top: 20px;
@@ -63,7 +65,8 @@ img {
   object-fit: cover; }
 
 .detail-img {
-  border-radius: 10px; }
+  border-radius: 10px;
+  margin-top: 30px; }
 
 .list {
   padding-left: 0; }
@@ -79,7 +82,8 @@ img {
 footer {
   position: absolute;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  margin-top: 10px; }
 
 .listShops {
   padding-bottom: 100px; }
@@ -96,9 +100,22 @@ footer {
   padding-bottom: 20px; }
 
 .height-home {
-  height: 100vh; }
+  height: 120vh; }
 
 .align-all {
   height: 130px; }
+
+.local-statement {
+  font-weight: bold; }
+
+.home-text {
+  padding-left: 30px;
+  margin-top: 40px; }
+
+.card {
+  margin: 10px; }
+
+.edit {
+  margin-bottom: 100px; }
 
 /*# sourceMappingURL=style.css.map */
