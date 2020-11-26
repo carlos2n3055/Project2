@@ -6,7 +6,9 @@ const Shop = require('./../models/shop-model')
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 
+//find ()
 // const localUpload = require('./../configs/local-upload.config')   // Para cloudinary
+const CDNUpload = require('./../configs/cdn-upload.config')
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
@@ -107,12 +109,13 @@ router.get('/signup', (req, res) => res.render('auth/signup', { user: req.user }
 
 
 // Añadir usuarios en la BBDD (POST)
-router.post('/signup', (req, res, next) => {
+router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
+
+    const imgFile = req.file.path
 
     const {
         username,
         password,
-        profileImg,
         role
     } = req.body
 
@@ -137,7 +140,7 @@ router.post('/signup', (req, res, next) => {
             User.create({
                     username,
                     password: hashPass,
-                    profileImg,
+                    profileImg: imgFile,
                     role
                 })
                 .then(() => res.redirect('/'))
