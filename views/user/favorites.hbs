@@ -6,21 +6,6 @@
 
     <hr>
 
-    <ul class="list">
-        {{#each favorites}}
-        <div class="col-md-4 list2">
-            <article class="list-group">
-                <div>
-                    <li>
-                        <h1>{{name}}</h1>
-                        <h5>Nationality: {{nationality}}</h5>
-                        <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
-                        <a href="/user-zone/favorite-del/{{_id}}" class="btn btn-sm btn-dark mx-2 btn-costum ">Delete</a>
-                    </li>
-                </div>
-            </article>
-        </div>
-        {{/each}}
-    </ul>
+    {{> favoritesShops}}
 
 </div>

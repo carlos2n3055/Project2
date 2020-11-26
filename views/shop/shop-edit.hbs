@@ -24,10 +24,7 @@
                     <label>Nationality</label>
                     <select name="nationality" class="form-control" id="nationality-list">
                         <option>{{nationality}}</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Mexican">Mexican</option>
-                        <option value="Colombian">Colombian</option>
-                        <option value="Chinese">Chinese</option>
+                        {{> shopNationality}}
                     </select>
                     <p><small>Currently: {{nationality}}</small></p>
                 </div>

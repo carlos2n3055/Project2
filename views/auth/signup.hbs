@@ -8,19 +8,11 @@
 
             <hr>
 
-            {{!-- <form action="/user-zone/signup" method="POST" enctype="multipart/form-data"> --}}    
+            {{!-- <form action="/user-zone/signup" method="POST" enctype="multipart/form-data"> --}}
             <form action="/user-zone/signup" method="POST">
 
-                <div class='form-group'>
-                    <label for='username'>Username</label>
-                    <input name='username' type='text' class='form-control' placeholder='Username' id='username'>
-                </div>
-
-                <div class='form-group'>
-                    <label for='password'>Password</label>
-                    <input name='password' type='password' class='form-control' placeholder='*****' id='password'>
-                </div>
-
+                {{> usernamePassword}}
+                
                 {{!-- <div class='form-group'>
                     <div class="custom-file">
                         <input name="imageFile" type="file" class="custom-file-input" id="imageFile">
