@@ -78,4 +78,14 @@ footer {
   box-shadow: 0px 0px 15px 15px #A4BCC2;
   -webkit-box-shadow: 0px 0px 15px 15px #A4BCC2; }
 
+.align-all {
+  height: 130px; }
+
+.carousel {
+  max-height: 700px;
+  overflow: hidden; }
+  .carousel .carousel-inner img {
+    width: 100%;
+    height: auto; }
+
 /*# sourceMappingURL=style.css.map */

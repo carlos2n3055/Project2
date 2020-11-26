@@ -5,8 +5,12 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
+<<<<<<< HEAD
   margin: 0;
   margin-bottom: 40px;
+=======
+  // background: rgba(172, 163, 154, 0.3);        
+>>>>>>> ad2b74335693491d78aef12f49971d0e5cd17cf4
 }
 
 h1 {
@@ -31,11 +35,6 @@ h1 {
 .new-shop-btn {
   padding-left: 0;
 }
-
-// .btn-costum, .danger {                       // Que sea solo para el de DELETE
-//   background-color: #A59C94;
-//   border: #A59C94;
-// }
 
 .btn-costum:hover {
   background-color: #A4BCC2;
@@ -102,4 +101,21 @@ footer {
   -webkit-border-radius: 50%;
   box-shadow: 0px 0px 15px 15px #A4BCC2;
   -webkit-box-shadow: 0px 0px 15px 15px #A4BCC2;
+}
+.height-home {
+  height: 100vh;
+}
+
+.align-all {
+  height: 130px;
+}
+
+.carousel {
+  max-height: 700px;
+  overflow: hidden;
+
+  .carousel-inner img {
+    width: 100%;
+    height: auto;
+  }
 }

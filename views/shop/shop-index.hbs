@@ -26,12 +26,16 @@
             </div>
             
             <h1>{{name}}</h1>
+
             <hr>
-            <h5>{{description}}</h5>
-            <p>Nationality: {{nationality}}</p>
+
+            <div class="align-all">
+                <h5>{{description}}</h5>
+                <p>Nationality: {{nationality}}</p>
+            </div>
             
-            {{!-- <div style="justify-content: center"> --}}
-            <div class="row justify-content-center">
+            <div style="justify-content: evenly">
+
                 <a href="/shops/{{_id}}" class="btn btn-sm btn-dark btn-costum">See Details</a>
                 <a href="/user-zone/favorites/{{_id}}" class="btn btn-sm btn-dark mx-2 btn-costum">Add to favorites</a>
 
