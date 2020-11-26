@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Shop = require('./../models/shop-model')
 
-// const localUpload = require('./../configs/local-upload.config')     // Para Cloudinary
+const CDNUpload = require('./../configs/cdn-upload.config')  // Cloudinary
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
@@ -16,17 +16,11 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 router.get('/', (req, res, next) => {
 
   let isAdmin = req.user ? req.user.role.includes('ADMIN') : false
-  
-  let isAdminOwner
-  
-  if (req.user && (req.user.role.includes('ADMIN') || req.user.role.includes('OWNER'))) {
-    isAdminOwner = true
-  } else {
-    isAdminOwner = false
-  }
+
+  let isAdminOwner = req.user && (req.user.role.includes('ADMIN') || req.user.role.includes('OWNER')) ? true : false
 
   Shop
-      .find()
+      .find({}, { name:"", shopImg:"", nationality:"", description:"" })
       .then(allShops => {
         res.render('shop/shop-index', { isAdmin, isAdminOwner, allShops })
       })
@@ -46,14 +40,14 @@ router.post('/new', (req, res, next) => {
   const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
   const owner = req.user.id
 
-  const tempLatitude = latitude === "" ? 40.41880845178171: latitude
+  const tempLatitude = latitude === "" ? 40.41880845178171: latitude       // Valores por defecto al crear una shop si no se introducen los datos de localización
   const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
 
   const location = {
     type: 'Point',
     coordinates: [tempLatitude, tempLongitude]
   }
- console.log(latitude)
+
   Shop
       .create({ name, shopImg, nationality, description, schedule, location, owner })
       .then(() => res.redirect('/shops'))
@@ -83,7 +77,7 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) 
   const shopId = req.query.id
 
     Shop
-        .findById(shopId)
+        .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"", location:"" })
         .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
         .catch(err => next(new Error(err)))
 })
@@ -96,7 +90,7 @@ router.post('/edit', (req, res, next) => {
 
     const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
 
-    const tempLatitude = latitude === "" ? 40.41880845178171: latitude
+    const tempLatitude = latitude === "" ? 40.41880845178171: latitude       // Valores por defecto al editar una shop y vaciar los datos de localización
     const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
   
     const location = {
@@ -120,7 +114,7 @@ router.get('/:shop_id', (req, res, next) => {
   let isAdmin = req.user ? req.user.role.includes('ADMIN'): false
 
   Shop
-      .findById(shopId)
+      .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"" })
       .then(theShop => {
       res.render('shop/shop-details', { isAdmin, theShop } )
         })
