@@ -48,7 +48,6 @@ img {
   object-fit: cover;
 }
 
-// --- MAPS ---
 #shopsMap,
 #shopMap {
   height: 500px;
@@ -84,22 +83,23 @@ img {
   padding-bottom: 20px;
 }
 
-
-// --- FOOTER ---
 footer {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
 
-
-// --- LIST SHOPS ---
 .listShops {
   padding-bottom: 100px;
 }
 
-
-// --- HOME ---
 .home {
   padding-bottom: 60px;
+}
+
+.shadowLink:hover {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  box-shadow: 0px 0px 15px 15px #A4BCC2;
+  -webkit-box-shadow: 0px 0px 15px 15px #A4BCC2;
 }
