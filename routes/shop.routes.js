@@ -37,7 +37,7 @@ router.get('/new', (req, res) => res.render('shop/shop-new'))
 // Guarda en la BBDD una tienda (POST)
 router.post('/new', CDNUpload.single("imageFile"), (req, res, next) => {
 
-  const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
+  const { name, nationality, description, schedule, latitude, longitude } = req.body
   const owner = req.user.id
 
   const tempLatitude = latitude === "" ? 40.41880845178171: latitude       // Valores por defecto al crear una shop si no se introducen los datos de localización
@@ -48,12 +48,25 @@ router.post('/new', CDNUpload.single("imageFile"), (req, res, next) => {
     coordinates: [tempLatitude, tempLongitude]
   }
 
+  if (req.file === undefined) {
+      
+    Shop
+        .create({ name, nationality, description, schedule, location, owner })
+        .then(() => res.redirect('/shops'))
+        .catch(err => next(new Error(err)))
+    
+    return
+
+  } else {
+
   const imgFile = req.file.path
 
   Shop
-      .create({ name, shopImg, nationality, description, schedule, location, owner })
+      .create({ name, shopImg: imgFile, nationality, description, schedule, location, owner })
       .then(() => res.redirect('/shops'))
       .catch(err => next(new Error(err)))
+  }
+
 })
 
 
@@ -86,11 +99,11 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) 
 
 
 // Edita en la BBDD la tienda (POST)
-router.post('/edit', (req, res, next) => {
+router.post('/edit', CDNUpload.single("imageFile"), (req, res, next) => {
 
     const shopId = req.query.id
 
-    const { name, shopImg, nationality, description, schedule, latitude, longitude } = req.body
+    const { name, nationality, description, schedule, latitude, longitude } = req.body
 
     const tempLatitude = latitude === "" ? 40.41880845178171: latitude       // Valores por defecto al editar una shop y vaciar los datos de localización
     const tempLongitude = longitude === "" ? -3.6965843056414744: longitude
@@ -100,10 +113,25 @@ router.post('/edit', (req, res, next) => {
       coordinates: [tempLatitude, tempLongitude]
     }
 
+  if (req.file === undefined) {
+
     Shop
-        .findByIdAndUpdate(shopId, { name, shopImg, nationality, description, schedule, location })
+        .findByIdAndUpdate(shopId, { name, nationality, description, schedule, location })
         .then(() => res.redirect('/shops'))
         .catch(err => next(new Error(err)))
+
+    return
+
+  } else {
+
+    const imgFile = req.file.path
+    
+    Shop
+        .findByIdAndUpdate(shopId, { name, shopImg: imgFile, nationality, description, schedule, location })
+        .then(() => res.redirect('/shops'))
+        .catch(err => next(new Error(err)))
+  }
+  
 })
 
 

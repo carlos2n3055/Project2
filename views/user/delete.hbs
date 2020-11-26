@@ -1,4 +1,5 @@
 <div class="edit container places-index">
+
     <div class="row justify-content-between">
         <h1 class="title" style="font-weight: 150">Active users:</h1>
     </div>
@@ -13,8 +14,8 @@
 
         <div class="card" style="width: 18rem;">
 
-
             <div class="card-body">
+
                 <h5 class="card-title">Username: {{this.username}}</h5>
 
                 <form action="/user-zone/change-role?user_id={{_id}}" method="POST">
@@ -33,19 +34,17 @@
                 <div style="display: flex;">
                     <a href="/user-zone/profile" class="btn btn-dark btn-sm btn-costum">Back</a>
                     <form action="/user-zone/delete?user_id={{_id}}" method="POST">
-                        <button type="submit" class="btn btn-dark btn-sm mx-2 btn-costum" style="background:#A59C94">Delete
-                            user</button>
+                        <button type="submit" class="btn btn-dark btn-sm mx-2 btn-costum" style="background:#A59C94">Delete user</button>
                     </form>
                 </div>
 
             </div>
 
         </div>
+
     </div>
  
-
     {{/each}}
     </div>
-
 
 </div>

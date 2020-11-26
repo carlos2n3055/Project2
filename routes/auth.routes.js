@@ -29,14 +29,12 @@ router.get('/favorites', (req, res, next) => {
     User
         .findById(req.user._id)
         .populate('favorites')
-        .then(theUser => {
-            res.render('user/favorites', theUser)
-        })
+        .then(theUser => {res.render('user/favorites', theUser)})
         .catch(err => next(new Error(err)))
 })
 
 
- // Añadir shop a favoritos del usuario (POST)
+ // Añadir shop a favoritos del usuario (GET)
 router.get('/favorites/:id', ensureAuthenticated, (req, res, next) => {
   
     const favorites = req.params.id
@@ -60,6 +58,7 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
 })
 
 
+
 // ----- SHOP'S OWNER -----
 
 // Muestra el listado de las tiendas del Owner (GET)
@@ -69,9 +68,7 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
 
     Shop
         .find({ owner: userId })
-        .then(ownerShops => {
-            res.render('user/owner-shops', { ownerShops })
-        })
+        .then(ownerShops => {res.render('user/owner-shops', { ownerShops })})
         .catch(err => next(new Error(err)))
 })
 
@@ -100,25 +97,17 @@ router.post('/del-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, 
 })
 
 
+
 // ----- SIGNUP -----
 
 // Muestra el formulario para añadir nuevo usuario (GET)
 router.get('/signup', (req, res) => res.render('auth/signup', { user: req.user }))
 
 
-// Añadir usuarios en la BBDD (POST) FIND OK!!!!!!!!!!!!!!!!!
-// router.post('/signup', CDNUpload.single("imageFile"), (req, res, next) => {
-
-//     const imgFile = req.file.path
-
-
+// Añadir usuarios en la BBDD (POST)
 router.post('/signup', (req, res, next) => {
 
-    const {
-        username,
-        password,
-        profileImg  // para quitar del signup
-    } = req.body
+    const { username, password } = req.body
 
     if (username === "" || password === "") {
         res.render('auth/signup', {errorMsg: "Please fill all fields"})
@@ -136,12 +125,8 @@ router.post('/signup', (req, res, next) => {
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(password, salt)
 
-            User.create({
-                    username,
-                    password: hashPass,
-                    // profileImg: imgFile,  // para quitar del signup y usar en el edit del user
-                    profileImg // para quitar del signup
-                })
+            User
+                .create({ username, password: hashPass })
                 .then(() => res.redirect('/'))
                 .catch(() => res.render('auth/signup', {errorMsg: "Error: User not created"}))
         })
@@ -220,27 +205,44 @@ router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']),
 
 
 // Edita en la BBDD los datos del usuario (POST)
-router.post('/edit', (req, res, next) => {
+router.post('/edit', CDNUpload.single("imageFile"), (req, res, next) => {
 
     const userId = req.query.user_id
     
-    const { username, password, profileImg, } = req.body
+    const { username, password } = req.body
 
     if (username === "") {
         res.render('user/edit', {errorMsg: "Please fill username"})
         return
+
     } else if (password === "") {
         res.render('user/edit', {errorMsg: "Please fill password"})
         return
+
+    } else if (req.file === undefined) {
+
+        const salt = bcrypt.genSaltSync(bcryptSalt)
+        const hashPass = bcrypt.hashSync(password, salt)
+
+        User
+            .findByIdAndUpdate(userId, { username, password: hashPass })
+            .then(userInfo => res.redirect('/user-zone/profile'))
+            .catch(err => next(new Error(err)))
+        
+        return
+
+    } else {
+
+        const imgFile = req.file.path
+
+        const salt = bcrypt.genSaltSync(bcryptSalt)
+        const hashPass = bcrypt.hashSync(password, salt)
+
+        User
+            .findByIdAndUpdate(userId, { username, password: hashPass, profileImg: imgFile, })
+            .then(userInfo => res.redirect('/user-zone/profile'))
+            .catch(err => next(new Error(err)))
     }
-
-    const salt = bcrypt.genSaltSync(bcryptSalt)
-    const hashPass = bcrypt.hashSync(password, salt)
-
-    User
-        .findByIdAndUpdate(userId, { username, password: hashPass, profileImg, })
-        .then(userInfo => res.redirect('/user-zone/profile'))
-        .catch(err => next(new Error(err)))
 })
 
 

@@ -10,6 +10,7 @@ const shopSchema = new Schema({
 
   shopImg: {
     type: String,
+    default: "https://res.cloudinary.com/dc9ajab1i/image/upload/v1606422917/project2/shopImgDefault.png",
     require: true
   },
 
@@ -22,7 +23,7 @@ const shopSchema = new Schema({
     type: String
   },
 
-  schedule: {              // Poner horario de tienda !!!!!
+  schedule: {
     type: String,
     default: 'Unknown'
   },

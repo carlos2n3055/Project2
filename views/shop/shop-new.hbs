@@ -1,6 +1,5 @@
 <div class="edit container places-index">
 
-
     <div>
 
         <div class="col-md-7">
@@ -9,18 +8,15 @@
 
             <hr>
 
-            <form action="/shops/new" method="POST">
+            <form action="/shops/new" method="POST" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="name-input">Name</label>
                     <input name="name" type="text" class="form-control" id="name-input">
                 </div>
 
-                <div class="form-group">
-                    <label for="shopImg-input">Shop image</label>
-                    <input name="shopImg" type="text" class="form-control" id="shopImg-input">
-                </div>
-
+                {{> shopImage}}
+                
                 <div class="form-group">
                     <label for="type-list">Nationality:</label>
                     <select name="nationality" class="form-control" id="nationality-list">
@@ -37,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="name-input">Schedule</label>
-                    <input name="schedule" type="text" class="form-control" id="schedule-input">
+                    <input name="schedule" type="text" class="form-control" id="schedule-input" placeholder="*9:00 am to 8:00 pm">
                 </div>
 
                 <div class="form-group">
@@ -50,6 +46,8 @@
                     <input name="longitude" type="text" class="form-control" id="longitude-input">
                 </div>
 
+                {{> errorMsg}}
+
                 <button type="submit" class="btn btn-dark btn-costum new-shop">Create Shop</button>
                 <a href="/shops" class="btn btn-dark btn-costum mx-2 new-shop">Back to shops</a>
 
@@ -58,6 +56,5 @@
         </div>
 
     </div>
-
 
 </div>

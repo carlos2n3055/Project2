@@ -14,7 +14,8 @@ const userSchema = new Schema({
     },
     
     profileImg: {
-        type: String
+        type: String,
+        default: "https://res.cloudinary.com/dc9ajab1i/image/upload/v1606421478/project2/profileImgDefault.png"
     },
     
     favorites: [{
