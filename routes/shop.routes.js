@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
 // ----- NEW SHOP -----
 
 // Muestra el formulario para crear una tienda (GET)
-router.get('/new', (req, res) => res.render('shop/shop-new'))
+router.get('/new', ensureAuthenticated, checkRole(['ADMIN', 'OWNER']), (req, res) => res.render('shop/shop-new'))
 
 
 // Guarda en la BBDD una tienda (POST)
