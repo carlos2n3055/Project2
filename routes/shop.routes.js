@@ -5,6 +5,7 @@ const Shop = require('./../models/shop-model')
 const CDNUpload = require('./../configs/cdn-upload.config')  // Cloudinary
 
 // const { ensureAuthenticated, checkRoleAdmin } = require('./../middlewares/custom.middlewares.js')
+// const { ensureAuthenticated, checkRole } = require('./../middlewares/custom.middlewares.js')
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
