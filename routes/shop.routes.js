@@ -48,6 +48,16 @@ router.post('/new', CDNUpload.single("imageFile"), (req, res, next) => {
     coordinates: [tempLatitude, tempLongitude]
   }
 
+  if (name === "") {
+        res.render('shop/shop-new', {errorMsg: "Please define a name"})
+        return
+  }
+
+  if (nationality === "Select") {
+        res.render('shop/shop-new', {errorMsg: "Please select a nationality"})
+        return
+  }
+  
   if (req.file === undefined) {
       
     Shop
