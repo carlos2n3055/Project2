@@ -8,8 +8,7 @@ const bcryptSalt = 10
 
 const CDNUpload = require('./../configs/cdn-upload.config')  // Cloudinary
 
-const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Not authorized, please log in' })
-const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Not authorized, you need a permit' })
+const { ensureAuthenticated, roleAdmin, roleOwner, roleGuest, roleAdminOwner, roleAdminOwnerGuest } = require('../middlewares/custom.middlewares')
 
 
 
@@ -17,7 +16,7 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 
 
 // Ver página del perfil del usuario (GET)
-router.get('/profile', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN'), isOwner: req.user.role.includes('OWNER') }))
+router.get('/profile', ensureAuthenticated, roleAdminOwnerGuest, (req, res) => res.render('user/profile', { user: req.user, isAdmin: req.user.role.includes('ADMIN'), isOwner: req.user.role.includes('OWNER') }))
    
 
 
@@ -62,7 +61,7 @@ router.get('/favorite-del/:id', ensureAuthenticated, (req, res, next) => {
 // ----- SHOP'S OWNER -----
 
 // Muestra el listado de las tiendas del Owner (GET)
-router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => { 
+router.get('/my-shops', ensureAuthenticated, roleOwner, (req, res, next) => { 
 
     const userId = req.user._id
 
@@ -74,7 +73,7 @@ router.get('/my-shops', ensureAuthenticated, checkRole(['OWNER']), (req, res, ne
 
 
 // Muestra el formulario para editar una tienda del Owner (POST)
-router.post('/edit-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
+router.post('/edit-shop-owner', ensureAuthenticated, roleOwner, (req, res, next) => {
 
   const shopId = req.query.shop_id
 
@@ -86,7 +85,7 @@ router.post('/edit-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req,
 
 
 // Elimina de la BBDD la tienda del Owner (POST)
-router.post('/del-shop-owner', ensureAuthenticated, checkRole(['OWNER']), (req, res, next) => {
+router.post('/del-shop-owner', ensureAuthenticated, roleOwner, (req, res, next) => {
 
     const shopId = req.query.shop_id
 
@@ -154,7 +153,7 @@ router.post('/login', passport.authenticate("local", {
 // -----  DELETE USERS AND CHANGE ROLE -----
 
 // Muestra la lista de usuarios para borrar o cambiar role (GET)
-router.get('/delete', ensureAuthenticated, checkRole(['ADMIN']), (req, res, next) => {
+router.get('/delete', ensureAuthenticated, roleAdmin, (req, res, next) => {
 
   User
     .find({}, { username:"", role:"" })
@@ -193,7 +192,7 @@ router.post('/change-role', (req, res, next) => {
 // -----  EDIT USER PROFILE -----
 
 // Muestra el formulario con los datos del usuario (GET)
-router.get('/edit', ensureAuthenticated, checkRole(['ADMIN', 'OWNER', 'GUEST']), (req, res, next) => {
+router.get('/edit', ensureAuthenticated, roleAdminOwnerGuest, (req, res, next) => {
 
   const userId = req.user._id
 
