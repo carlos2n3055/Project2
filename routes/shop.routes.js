@@ -13,13 +13,14 @@ const { ensureAuthenticated, roleAdmin, roleOwner, roleGuest, roleAdminOwner } =
 
 // Muestra la lista de las tiendas (GET)
 router.get('/', (req, res, next) => {
+  console.log('estas aqui')
 
   let isAdmin = req.user ? req.user.role.includes('ADMIN') : false
 
   let isAdminOwner = req.user && (req.user.role.includes('ADMIN') || req.user.role.includes('OWNER')) ? true : false
 
   Shop
-      .find({}, { name:"", shopImg:"", nationality:"", description:"" })
+      .find({}, 'name shopImg nationality description')
       .then(allShops => {
         res.render('shop/shop-index', { isAdmin, isAdminOwner, allShops })
       })
@@ -104,7 +105,7 @@ router.get('/edit', ensureAuthenticated, roleAdmin, (req, res, next) => {
   const shopId = req.query.id
 
     Shop
-        .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"", location:"" })
+        .findById(shopId)
         .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
         .catch(err => next(new Error(err)))
 })
@@ -157,7 +158,7 @@ router.get('/:shop_id', (req, res, next) => {
   let isAdmin = req.user ? req.user.role.includes('ADMIN'): false
 
   Shop
-      .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"" })
+      .findById(shopId)
       .then(theShop => {
       res.render('shop/shop-details', { isAdmin, theShop } )
         })

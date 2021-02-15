@@ -78,7 +78,7 @@ router.post('/edit-shop-owner', ensureAuthenticated, roleOwner, (req, res, next)
   const shopId = req.query.shop_id
 
     Shop
-        .findById(shopId, { name:"", shopImg:"", nationality:"", description:"", schedule:"", location:"" })
+        .findById(shopId)
         .then(shopInfo => res.render('shop/shop-edit', shopInfo ))
         .catch(err => next(new Error(err)))
 })
@@ -156,7 +156,7 @@ router.post('/login', passport.authenticate("local", {
 router.get('/delete', ensureAuthenticated, roleAdmin, (req, res, next) => {
 
   User
-    .find({}, { username:"", role:"" })
+    .find({}, 'username role')
     .then(allUsers => res.render('user/delete', { allUsers }))
     .catch(err => next(new Error(err)))
 })
@@ -197,7 +197,7 @@ router.get('/edit', ensureAuthenticated, roleAdminOwnerGuest, (req, res, next) =
   const userId = req.user._id
 
     User
-        .findById(userId, { username:"", password:"", profileImg:"" })
+        .findById(userId)
         .then(userInfo => res.render('user/edit', { user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
         .catch(err => next(new Error(err)))
 })
